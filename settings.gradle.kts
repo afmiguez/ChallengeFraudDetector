@@ -1,1 +1,1 @@
-rootProject.name = "ChallengeFileUpload"
+rootProject.name = "ChallengeFraudDetector"

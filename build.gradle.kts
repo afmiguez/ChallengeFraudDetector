@@ -30,17 +30,16 @@ dependencies {
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-auth-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-auth-jwt-jvm:$ktor_version")
-    implementation("io.ktor:ktor-server-cors-jvm:$ktor_version")
+
+    implementation("io.ktor:ktor-server-cors:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
 
-
-    testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
-
-
     implementation("ch.qos.logback:logback-classic:$logback_version")
-    testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
+
+    testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlin_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 
 
@@ -49,10 +48,7 @@ dependencies {
     implementation("io.insert-koin:koin-ktor:$koinVersion")
     // SLF4J Logger
     implementation("io.insert-koin:koin-logger-slf4j:$koinVersion")
-
-
-    // Koin for JUnit 5
-    testImplementation("io.insert-koin:koin-test-junit5:$koinVersion")
+    testImplementation ("io.insert-koin:koin-test:$koinVersion")
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
@@ -69,6 +65,13 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
     implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
     implementation("com.h2database:h2:$h2_version")
+    testImplementation("com.h2database:h2:$h2_version")
+
+    val hikariCpVersion = "5.0.1"
+    val flywayVersion = "8.5.4"
+
+    implementation("com.zaxxer:HikariCP:$hikariCpVersion")
+    implementation("org.flywaydb:flyway-core:$flywayVersion")
 
 
 
