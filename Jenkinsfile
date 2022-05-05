@@ -25,7 +25,7 @@ pipeline {
            continueOnError: false, failOnError: true,
            publishers: [
             sshPublisherDesc(
-             configName: "prod",
+             configName: "fraudProd",
              verbose: true,
              transfers: [
               sshTransfer(
@@ -48,9 +48,10 @@ pipeline {
                     transfers: [
                         sshTransfer(execCommand:" rm -rf fraud && mkdir fraud"),
                         sshTransfer(sourceFiles: "client/deploy/**/*",),
+                        sshTransfer(sourceFiles: "client/build/**/*",),
                         sshTransfer(
-                            sourceFiles: "client/build/**/*",
-                            execCommand: "cd client/deploy && chmod +x index.js && npm install && sudo service fraud-ui restart"
+                        remoteDirectory:"client/deploy",
+                        execCommand: "chmod +x index.js && npm install && sudo service fraud-ui restart"
                         )
                     ]
                  )
