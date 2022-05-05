@@ -19,5 +19,24 @@ pipeline {
       }
     }
 
+    stage('SSH transfer') {
+         steps {
+          sshPublisher(
+           continueOnError: false, failOnError: true,
+           publishers: [
+            sshPublisherDesc(
+             configName: "prod",
+             verbose: true,
+             transfers: [
+              sshTransfer(
+               sourceFiles: "**/*.jar",
+               execCommand: "mv ./build/libs/*.jar ./fraud-api.jar && rm -rf ./build && chmod +x ./fraud-api.jar && sudo service fraud-api restart"
+              )
+             ])
+           ])
+         }
+        }
+
+
   }
 }

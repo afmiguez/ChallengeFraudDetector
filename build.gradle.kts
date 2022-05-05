@@ -1,3 +1,6 @@
+
+import org.jetbrains.kotlin.com.intellij.openapi.vfs.StandardFileSystems.jar
+
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
@@ -14,7 +17,11 @@ plugins {
 
     id("org.siouan.frontend-jdk11") version "6.0.0"
 
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+
 }
+
+
 
 
 frontend {
@@ -31,7 +38,7 @@ frontend {
 group = "com.example"
 version = "0.0.1"
 application {
-    mainClass.set("com.example.ApplicationKt")
+    mainClass.set("me.afmiguez.projects.challenge.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
@@ -103,5 +110,7 @@ dependencies {
     testImplementation("io.mockk:mockk:${mockkVersion}")
 
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
+
+
 
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL = process.env.REACT_APP_BASEURL;
 axios.interceptors.request.use(config => {
     const token=sessionStorage.getItem("token");
     console.log()
