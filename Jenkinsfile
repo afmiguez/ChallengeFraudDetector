@@ -62,8 +62,7 @@ pipeline {
                         sshTransfer(execCommand: "cd /root/fraud/client/deploy && chmod +x index.js && npm install && sudo service fraud-ui restart")
                     ]
                 )
-                ]),
-                }
+                ])}
             }
   }
 }
