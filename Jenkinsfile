@@ -25,7 +25,7 @@ pipeline {
            continueOnError: false, failOnError: true,
            publishers: [
             sshPublisherDesc(
-             configName: "fraudProd",
+             configName: "prod",
              verbose: true,
              transfers: [
               sshTransfer(
