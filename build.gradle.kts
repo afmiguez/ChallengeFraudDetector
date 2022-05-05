@@ -31,8 +31,6 @@ frontend {
     cleanScript.set("run clean")
     checkScript.set("run check")
     packageJsonDirectory.set(file("${rootProject.projectDir}/client"))
-    //nodeInstallDirectory.set(file("/usr/bin"))
-    //nodeInstallDirectory.set(file("${rootProject.projectDir}/client"))
 }
 
 group = "com.example"
