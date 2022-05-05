@@ -72,7 +72,7 @@ pipeline {
                     transfers: [
                     sshTransfer(
                     sourceFiles: "client/build/**/*",
-                    remoteDirectory:"deploy",
+                    remoteDirectory:"client/deploy",
                     execCommand: "chmod +x index.js && npm install && sudo service fraud-ui restart"
                   )
                  ])
