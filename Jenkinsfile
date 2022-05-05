@@ -51,19 +51,6 @@ pipeline {
                   )
                  ])
                 ])
-                    sshPublisher(
-                    continueOnError: false, failOnError: true,
-                    publishers: [
-                    sshPublisherDesc(
-                    configName: "fraudProd",
-                    verbose: true,
-                    transfers: [
-                    sshTransfer(
-                    sourceFiles: "build/**/*",
-
-                  )
-                 ])
-                ])
                 sshPublisher(
                     continueOnError: false, failOnError: true,
                     publishers: [
@@ -72,9 +59,22 @@ pipeline {
                     verbose: true,
                     transfers: [
                     sshTransfer(
-                    sourceFiles: "deploy/**/*",
-
+                    sourceFiles: "client/deploy/**/*",
+                    remoteDirectory: "/root/fraud",
                    execCommand: "pwd && cp -R ./build ./deploy/ && rm -rf ./build && cd fraud/deploy && chmod +x index.js && npm install && sudo service fraud-ui restart"
+                  )
+                 ])
+                ])
+                    sshPublisher(
+                    continueOnError: false, failOnError: true,
+                    publishers: [
+                    sshPublisherDesc(
+                    configName: "fraudProd",
+                    verbose: true,
+                    transfers: [
+                    sshTransfer(
+                    sourceFiles: "client/build/**/*",
+                    remoteDirectory: "/root/fraud/deploy",
                   )
                  ])
                 ])
