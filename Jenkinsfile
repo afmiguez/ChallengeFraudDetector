@@ -25,6 +25,7 @@ pipeline {
                         sshTransfer(execCommand:" rm -rf fraud && mkdir fraud"),
                         sshTransfer(sourceFiles: "client/deploy/**/*",),
                         sshTransfer(
+                            remoteDirectory:"deploy",
                             sourceFiles: "client/build/**/*",
                         ),
                     ]
