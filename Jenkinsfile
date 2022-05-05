@@ -46,41 +46,16 @@ pipeline {
                     configName: "fraudProd",
                     verbose: true,
                     transfers: [
-                    sshTransfer(
-                    execCommand:" rm -rf fraud && mkdir fraud"
-                  )
-                 ])
-                ])
-                sshPublisher(
-                    continueOnError: false, failOnError: true,
-                    publishers: [
-                    sshPublisherDesc(
-                    configName: "fraudProd",
-                    verbose: true,
-                    transfers: [
-                    sshTransfer(
-                    sourceFiles: "client/deploy/**/*",
-                  )
-                 ])
-                ])
-                    sshPublisher(
-                    continueOnError: false, failOnError: true,
-                    publishers: [
-                    sshPublisherDesc(
-                    configName: "fraudProd",
-                    verbose: true,
-                    transfers: [
-                    sshTransfer(
-                    sourceFiles: "client/build/**/*",
-                    remoteDirectory:"client/deploy",
-                    execCommand: "chmod +x index.js && npm install && sudo service fraud-ui restart"
-                  )
-                 ])
+                        sshTransfer(execCommand:" rm -rf fraud && mkdir fraud"),
+                        sshTransfer(sourceFiles: "client/deploy/**/*",),
+                        sshTransfer(
+                            sourceFiles: "client/build/**/*",
+                            execCommand: "cd client/deploy && chmod +x index.js && npm install && sudo service fraud-ui restart"
+                        )
+                    ]
+                 )
                 ])
                 }
             }
-
-
-
   }
 }
