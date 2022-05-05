@@ -60,6 +60,7 @@ pipeline {
                     transfers: [
                     sshTransfer(
                     sourceFiles: "build/**/*",
+                    remoteDirectory: 'fraud',
                   )
                  ])
                 ])
@@ -72,7 +73,8 @@ pipeline {
                     transfers: [
                     sshTransfer(
                     sourceFiles: "deploy/**/*",
-                   execCommand: "cp -R ./fraud/build ./fraud/deploy/ && rm -rf ./fraud/build && cd fraud/deploy && chmod +x index.js && npm install && sudo service fraud-ui restart"
+                    remoteDirectory: 'fraud',
+                   execCommand: "cp -R ./build ./deploy/ && rm -rf ./build && cd fraud/deploy && chmod +x index.js && npm install && sudo service fraud-ui restart"
                   )
                  ])
                 ])
