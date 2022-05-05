@@ -14,10 +14,10 @@ fun main(args:Array<String>) {
 
 fun Application.module(){
     configureDI()
+    configureDatabase()
     configureRouting()
     configureSecurity()
     configureHTTP()
     configureSerialization()
-    configureDatabase()
 }
 

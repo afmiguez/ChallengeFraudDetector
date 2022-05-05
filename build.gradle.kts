@@ -5,11 +5,27 @@ val koinVersion:String by project
 val jacksonVersion:String by project
 val exposed_version:String by project
 val h2_version:String by project
+val mockkVersion:String by project
 
 plugins {
     application
     kotlin("jvm") version "1.6.21"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.6.21"
+
+    id("org.siouan.frontend-jdk11") version "6.0.0"
+
+}
+
+
+frontend {
+
+    nodeVersion.set( "14.17.3")
+   assembleScript.set("run build")
+    cleanScript.set("run clean")
+    checkScript.set("run check")
+    packageJsonDirectory.set(file("${rootProject.projectDir}/client"))
+    //nodeInstallDirectory.set(file("/usr/bin"))
+    //nodeInstallDirectory.set(file("${rootProject.projectDir}/client"))
 }
 
 group = "com.example"
@@ -55,6 +71,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-csv
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv:$jacksonVersion")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
@@ -66,13 +83,25 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
     implementation("com.h2database:h2:$h2_version")
     testImplementation("com.h2database:h2:$h2_version")
+    testImplementation("io.ktor:ktor-server-tests-jvm:2.0.0")
 
     val hikariCpVersion = "5.0.1"
-    val flywayVersion = "8.5.4"
+    val flywayVersion = "8.5.9"
 
     implementation("com.zaxxer:HikariCP:$hikariCpVersion")
     implementation("org.flywaydb:flyway-core:$flywayVersion")
 
+    // https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+    implementation("org.mindrot:jbcrypt:0.4")
 
+    implementation("io.ktor:ktor-server-auth:$ktor_version")
+    implementation("io.ktor:ktor-server-auth-jwt:$ktor_version")
+
+    testImplementation("io.ktor:ktor-client-mock:$ktor_version")
+
+    val mockkVersion="1.12.3"
+    testImplementation("io.mockk:mockk:${mockkVersion}")
+
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
 
 }

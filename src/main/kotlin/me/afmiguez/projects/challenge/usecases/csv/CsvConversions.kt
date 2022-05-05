@@ -7,9 +7,7 @@ import com.fasterxml.jackson.module.kotlin.KotlinFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import me.afmiguez.projects.challenge.models.Transaction
 import me.afmiguez.projects.challenge.routes.dtos.TransactionDTO
-import java.io.FileReader
 import java.io.InputStream
-import java.text.DateFormat
 
 val csvMapper = CsvMapper().apply {
     registerModule(
@@ -25,11 +23,6 @@ val csvMapper = CsvMapper().apply {
     )
     disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
 }
-
-fun csvToTransactionList(fileName: String):List<Transaction>{
-    return readCsvFile(fileName, schema = transactionSchema())
-}
-
 private fun transactionSchema():CsvSchema{
     return CsvSchema.Builder()
         .addColumn("sourceBankName")
@@ -45,18 +38,6 @@ private fun transactionSchema():CsvSchema{
 
 fun csvToTransactionList(stream: InputStream):List<Transaction>{
     return readCsvStream<TransactionDTO>(stream, schema = transactionSchema()).map { it.toModel() }
-}
-
-inline fun <reified T> readCsvFile(fileName: String,schema: CsvSchema= CsvSchema.emptySchema()): List<T> {
-    FileReader(fileName).use { reader ->
-        return csvMapper
-
-            .readerFor(T::class.java)
-            .with(schema)
-            .readValues<T>(reader)
-            .readAll()
-            .toList()
-    }
 }
 
 //based on https://medium.com/att-israel/jackson-csv-reader-writer-using-kotlin-f37ae771bd6d

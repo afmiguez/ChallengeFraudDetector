@@ -3,44 +3,39 @@ package me.afmiguez.projects.challenge.data
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import org.flywaydb.core.Flyway
+import kotlinx.coroutines.*
 import org.jetbrains.exposed.sql.Database
-import org.slf4j.LoggerFactory
-import javax.sql.DataSource
+import org.jetbrains.exposed.sql.transactions.transaction
 
 object DatabaseFactory {
-
-    private val log = LoggerFactory.getLogger(this::class.java)
     fun init() {
-//        val pool = hikari()
-//        Database.connect(pool)
-//        runFlyway(pool)
+        Database.connect(hikari())
+        createTables()
     }
 
     private fun hikari(): HikariDataSource {
-        val config = HikariConfig().apply {
-            driverClassName = "org.h2.Driver"
-            //jdbcUrl = "jdbc:h2:mem:test"
-            jdbcUrl="jdbc:h2:file:./build/db"
-            maximumPoolSize = 3
-            isAutoCommit = false
-            transactionIsolation = "TRANSACTION_REPEATABLE_READ"
-            validate()
-        }
+        val config = HikariConfig()
+        config.driverClassName = "org.h2.Driver"
+        config.jdbcUrl = "jdbc:h2:mem:test"
+        config.maximumPoolSize = 3
+        config.isAutoCommit = false
+        config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+        config.validate()
         return HikariDataSource(config)
     }
 
-    private fun runFlyway(datasource: DataSource) {
-        val flyway = Flyway.configure()
-            .dataSource(datasource)
-            .load()
-        try {
-//            flyway.info()
-            flyway.migrate()
-        } catch (e: Exception) {
-            log.error("Exception running flyway migration", e)
-            throw e
+    suspend fun <T> dbQuery(block: () -> T): T =
+        withContext(Dispatchers.IO) {
+            transaction { block() }
         }
-        log.info("Flyway migration has finished")
+
+    fun myLaunch(block:()->Unit) {
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.IO){
+
+                block()
+            }
+        }
     }
+
 }

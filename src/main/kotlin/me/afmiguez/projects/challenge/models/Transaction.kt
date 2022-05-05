@@ -2,7 +2,7 @@ package me.afmiguez.projects.challenge.models
 
 import java.time.LocalDate
 
-class Transaction(
+data class Transaction(
     val sourceBankName: String, val sourceBranchCode: String, val sourceAccountCode: String,
     val destinationBankName: String, val destinationBranchCode: String, val destinationAccountCode: String,
     val amount: Float, val timestamp: LocalDate

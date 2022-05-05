@@ -5,6 +5,8 @@ import org.jetbrains.exposed.sql.javatime.date
 import org.jetbrains.exposed.sql.javatime.datetime
 
 object Imports:IntIdTable() {
+
     val transactionsDate=date("transactions_date")
     val importDate=datetime("import_date")
+    val user = reference("user",Users)
 }
