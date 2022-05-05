@@ -7,26 +7,15 @@ pipeline {
       }
     }
 
-    stage('build') {
-      parallel {
-        stage('build frontend') {
-          steps {
-            sh './gradlew assembleFrontend'
-          }
-        }
-
-        stage('build api') {
-          steps {
-            sh './gradlew clean shadowJar'
-          }
-        }
-
+    stage('build frontend') {
+      steps {
+        sh './gradlew assembleFrontend'
       }
     }
 
-    stage('deploy frontend') {
+    stage('build api') {
       steps {
-        sshPut(from: 'test', into: 'prod')
+        sh './gradlew clean shadowJar'
       }
     }
 
