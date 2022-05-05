@@ -7,5 +7,28 @@ pipeline {
       }
     }
 
+    stage('build') {
+      parallel {
+        stage('build frontend') {
+          steps {
+            sh './gradlew assembleFrontend'
+          }
+        }
+
+        stage('build api') {
+          steps {
+            sh './gradlew clean shadowJar'
+          }
+        }
+
+      }
+    }
+
+    stage('deploy frontend') {
+      steps {
+        sshPut(from: 'test', into: 'prod')
+      }
+    }
+
   }
 }
