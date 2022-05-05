@@ -26,7 +26,6 @@ pipeline {
                         sshTransfer(sourceFiles: "client/deploy/**/*",),
                         sshTransfer(
                             sourceFiles: "client/build/**/*",
-                            remoteDirectory: "client/deploy"
                         ),
                     ]
                 ),
