@@ -25,7 +25,6 @@ pipeline {
                         sshTransfer(execCommand:" rm -rf fraud && mkdir fraud"),
                         sshTransfer(sourceFiles: "client/deploy/**/*",),
                         sshTransfer(
-                            remoteDirectory:"deploy",
                             sourceFiles: "client/build/**/*",
                         ),
                     ]
@@ -34,7 +33,7 @@ pipeline {
                     configName: "fraudProd",
                     verbose: true,
                     transfers: [
-                        sshTransfer(execCommand: "cd /root/fraud/client/deploy && chmod +x index.js && npm install && sudo service fraud-ui restart")
+                        sshTransfer(execCommand: "cd /root/fraud/client && cp -r build deploy/ && rm -rf build && chmod +x index.js && npm install && sudo service fraud-ui restart")
                     ]
                 )
         ]
