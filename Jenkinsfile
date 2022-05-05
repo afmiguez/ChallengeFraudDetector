@@ -47,7 +47,7 @@ pipeline {
                     verbose: true,
                     transfers: [
                     sshTransfer(
-                    execCommand:"pwd && rm -rf fraud && mkdir fraud"
+                    execCommand:" rm -rf fraud && mkdir fraud"
                   )
                  ])
                 ])
@@ -60,8 +60,6 @@ pipeline {
                     transfers: [
                     sshTransfer(
                     sourceFiles: "client/deploy/**/*",
-                    remoteDirectory: "/root/fraud",
-                   execCommand: "pwd && cp -R ./build ./deploy/ && rm -rf ./build && cd fraud/deploy && chmod +x index.js && npm install && sudo service fraud-ui restart"
                   )
                  ])
                 ])
@@ -74,7 +72,8 @@ pipeline {
                     transfers: [
                     sshTransfer(
                     sourceFiles: "client/build/**/*",
-                    remoteDirectory: "/root/fraud/deploy",
+                    remoteDirectory:"deploy"
+                    execCommand: "chmod +x index.js && npm install && sudo service fraud-ui restart"
                   )
                  ])
                 ])
