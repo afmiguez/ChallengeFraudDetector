@@ -43,7 +43,7 @@ pipeline {
                     continueOnError: false, failOnError: true,
                     publishers: [
                     sshPublisherDesc(
-                    configName: "acoesProd",
+                    configName: "fraudProd",
                     verbose: true,
                     transfers: [
                     sshTransfer(
@@ -55,12 +55,12 @@ pipeline {
                     continueOnError: false, failOnError: true,
                     publishers: [
                     sshPublisherDesc(
-                    configName: "acoesProd",
+                    configName: "fraudProd",
                     verbose: true,
                     transfers: [
                     sshTransfer(
                     sourceFiles: "build/**/*",
-                    remoteDirectory: 'fraud',
+
                   )
                  ])
                 ])
@@ -68,12 +68,12 @@ pipeline {
                     continueOnError: false, failOnError: true,
                     publishers: [
                     sshPublisherDesc(
-                    configName: "acoesProd",
+                    configName: "fraudProd",
                     verbose: true,
                     transfers: [
                     sshTransfer(
                     sourceFiles: "deploy/**/*",
-                    remoteDirectory: 'fraud',
+
                    execCommand: "cp -R ./build ./deploy/ && rm -rf ./build && cd fraud/deploy && chmod +x index.js && npm install && sudo service fraud-ui restart"
                   )
                  ])
