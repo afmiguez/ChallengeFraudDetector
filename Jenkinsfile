@@ -19,7 +19,7 @@ pipeline {
       }
     }
 
-    stage('SSH transfer') {
+    stage('deploy api') {
          steps {
           sshPublisher(
            continueOnError: false, failOnError: true,
@@ -36,6 +36,49 @@ pipeline {
            ])
          }
         }
+
+        stage('deploy ui') {
+                steps{
+                  sshPublisher(
+                    continueOnError: false, failOnError: true,
+                    publishers: [
+                    sshPublisherDesc(
+                    configName: "acoesProd",
+                    verbose: true,
+                    transfers: [
+                    sshTransfer(
+                    execCommand:"rm -rf fraud && mkdir fraud"
+                  )
+                 ])
+                ])
+                    sshPublisher(
+                    continueOnError: false, failOnError: true,
+                    publishers: [
+                    sshPublisherDesc(
+                    configName: "acoesProd",
+                    verbose: true,
+                    transfers: [
+                    sshTransfer(
+                    sourceFiles: "build/**/*",
+                  )
+                 ])
+                ])
+                sshPublisher(
+                    continueOnError: false, failOnError: true,
+                    publishers: [
+                    sshPublisherDesc(
+                    configName: "acoesProd",
+                    verbose: true,
+                    transfers: [
+                    sshTransfer(
+                    sourceFiles: "deploy/**/*",
+                   execCommand: "cp -R ./fraud/build ./fraud/deploy/ && rm -rf ./fraud/build && cd fraud/deploy && chmod +x index.js && npm install && sudo service fraud-ui restart"
+                  )
+                 ])
+                ])
+                }
+            }
+
 
 
   }
