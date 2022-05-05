@@ -42,27 +42,25 @@ pipeline {
                   sshPublisher(
                     continueOnError: false, failOnError: true,
                     publishers: [
-                    sshPublisherDesc(
-                    configName: "fraudProd",
-                    verbose: true,
-                    transfers: [
-                        sshTransfer(execCommand:" rm -rf fraud && mkdir fraud"),
-                        sshTransfer(sourceFiles: "client/deploy/**/*",),
-                        sshTransfer(sourceFiles: "client/build/**/*",),
-                    ]
-                 )
-                ]),
-                sshPublisher(
-                    continueOnError: false, failOnError: true,
-                    publishers: [
-                    sshPublisherDesc(
-                    configName: "fraudProd",
-                    verbose: true,
-                    transfers: [
-                        sshTransfer(execCommand: "cd /root/fraud/client/deploy && chmod +x index.js && npm install && sudo service fraud-ui restart")
-                    ]
+                        sshPublisherDesc(
+                            configName: "fraudProd",
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(execCommand:" rm -rf fraud && mkdir fraud"),
+                                sshTransfer(sourceFiles: "client/deploy/**/*",),
+                                sshTransfer(sourceFiles: "client/build/**/*",),
+                            ]
+                        ),
+                        sshPublisherDesc(
+                            configName: "fraudProd",
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(execCommand: "cd /root/fraud/client/deploy && chmod +x index.js && npm install && sudo service fraud-ui restart")
+                            ]
+                        )
+                ]
                 )
-                ])}
+                }
             }
   }
 }
