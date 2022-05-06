@@ -38,7 +38,7 @@ pipeline {
                     verbose: true,
                     transfers: [
                         sshTransfer(
-                        execCommand: "cd /root/fraud/client && cp -r build deploy/ && rm -rf build && cd deploy && chmod +x index.js && npm install && sudo service fraud-ui restart")
+                        execCommand: "cd /root/fraud/client && cp -r build deploy/ && rm -rf build && cd deploy && chmod +x index.js && npm install && service fraud-ui restart")
                     ]
                 )
         ]
@@ -48,7 +48,7 @@ pipeline {
 
     stage('build api') {
       steps {
-        sh './gradlew clean shadowJar'
+        sh './gradlew shadowJar'
       }
     }
 
@@ -63,7 +63,7 @@ pipeline {
              transfers: [
               sshTransfer(
                sourceFiles: "**/*.jar",
-               execCommand: "mv ./build/libs/*.jar ./fraud-api.jar && rm -rf ./build && chmod +x ./fraud-api.jar && sudo service fraud-api restart"
+               execCommand: "mv ./build/libs/*.jar ./fraud-api.jar && rm -rf ./build && chmod +x ./fraud-api.jar && service fraud-api restart"
               )
              ])
            ])
