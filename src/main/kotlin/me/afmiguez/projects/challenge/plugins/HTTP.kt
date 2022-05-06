@@ -9,7 +9,9 @@ import io.ktor.server.plugins.cors.*
 fun Application.configureHTTP() {
     install(CORS) {
         //allowHost("localhost:3000")
-        allowHost("afmiguez.me:5000")
+        allowHost("fraud.afmiguez.me:5002")
+        allowHost("192.168.1.25:5002")
+
         allowHeader(HttpHeaders.ContentType)
         allowMethod(HttpMethod.Options)
         allowMethod(HttpMethod.Put)
