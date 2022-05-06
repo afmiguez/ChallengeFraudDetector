@@ -28,14 +28,4 @@ object DatabaseFactory {
         withContext(Dispatchers.IO) {
             transaction { block() }
         }
-
-    fun myLaunch(block:()->Unit) {
-        CoroutineScope(Dispatchers.Main).launch {
-            withContext(Dispatchers.IO){
-
-                block()
-            }
-        }
-    }
-
 }

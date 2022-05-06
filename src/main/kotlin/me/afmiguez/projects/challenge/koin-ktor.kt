@@ -6,6 +6,9 @@ package me.afmiguez.projects.challenge
 import io.ktor.events.EventDefinition
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
 import org.koin.core.context.GlobalContext
@@ -15,6 +18,9 @@ import org.koin.core.module.Module
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
 import org.koin.dsl.KoinAppDeclaration
+import org.koin.logger.SLF4JLogger
+
+val logger = SLF4JLogger()
 
 inline fun <reified T : Any> ApplicationCall.inject(
     qualifier: Qualifier? = null, noinline parameters: ParametersDefinition? = null
@@ -90,7 +96,11 @@ class KoinConfig {
 }
 
 val Koin = createApplicationPlugin(name = "Koin", createConfiguration = ::KoinConfig) {
-    println("Koin is installed!")
+
+
+    logger.info("Koin is installed!")
+
+
     val declaration: KoinAppDeclaration = {
         modules(pluginConfig.modules)
     }

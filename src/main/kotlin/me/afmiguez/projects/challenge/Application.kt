@@ -2,8 +2,6 @@ package me.afmiguez.projects.challenge
 
 import io.ktor.server.application.*
 import io.ktor.server.netty.*
-import me.afmiguez.projects.challenge.data.DatabaseFactory
-import me.afmiguez.projects.challenge.di.koinModules
 import me.afmiguez.projects.challenge.plugins.*
 
 fun main(args:Array<String>) {

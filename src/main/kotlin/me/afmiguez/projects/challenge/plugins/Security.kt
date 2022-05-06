@@ -9,14 +9,6 @@ import io.ktor.server.auth.jwt.*
 import io.ktor.server.response.*
 
 fun Application.configureSecurity() {
-
-    println()
-    println()
-    println()
-    println()
-    println()
-    println("SECURITY CONFIGURED")
-
     val secret = environment.config.property("jwt.secret").getString()
     val issuer = environment.config.property("jwt.issuer").getString()
     val audience = environment.config.property("jwt.audience").getString()

@@ -5,10 +5,10 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-process.title="acoes-ui";
+process.title="fraud-ui";
 
 app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(5001);
+app.listen(5002);

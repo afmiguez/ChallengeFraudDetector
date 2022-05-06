@@ -1,11 +1,11 @@
 pipeline {
   agent any
   stages {
-    stage('test') {
-      steps {
-        sh './gradlew test'
-      }
-    }
+//     stage('test') {
+//       steps {
+//         sh './gradlew test'
+//       }
+//     }
 
     stage('build frontend') {
       steps {
@@ -19,7 +19,7 @@ pipeline {
             continueOnError: false, failOnError: true,
             publishers: [
                 sshPublisherDesc(
-                    configName: "fraudProd",
+                    configName: "projects",
                     verbose: true,
                     transfers: [
                         sshTransfer(execCommand:" rm -rf fraud && mkdir fraud"),
@@ -30,10 +30,10 @@ pipeline {
                     ]
                 ),
                 sshPublisherDesc(
-                    configName: "fraudProd",
+                    configName: "projects",
                     verbose: true,
                     transfers: [
-                        sshTransfer(execCommand: "cd /root/fraud/client && cp -r build deploy/ && rm -rf build && chmod +x index.js && npm install && sudo service fraud-ui restart")
+                        sshTransfer(execCommand: "cd /root/fraud/client && cp -r build deploy/ && rm -rf build && cd deploy && chmod +x index.js && npm install && sudo service fraud-ui restart")
                     ]
                 )
         ]
@@ -53,7 +53,7 @@ pipeline {
            continueOnError: false, failOnError: true,
            publishers: [
             sshPublisherDesc(
-             configName: "prod",
+             configName: "projects",
              verbose: true,
              transfers: [
               sshTransfer(

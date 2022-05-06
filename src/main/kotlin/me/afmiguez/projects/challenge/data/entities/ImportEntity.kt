@@ -1,8 +1,6 @@
 package me.afmiguez.projects.challenge.data.entities
 
-import kotlinx.coroutines.*
 import me.afmiguez.projects.challenge.data.DatabaseFactory.dbQuery
-import me.afmiguez.projects.challenge.data.DatabaseFactory.myLaunch
 import me.afmiguez.projects.challenge.data.tables.Imports
 import me.afmiguez.projects.challenge.data.tables.Transactions
 import me.afmiguez.projects.challenge.data.tables.Users
@@ -12,7 +10,6 @@ import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.koin.core.context.GlobalContext
 
 class ImportEntity(id: EntityID<Int>) : IntEntity(id) {
     var importDate by Imports.importDate

@@ -1,6 +1,3 @@
-
-import org.jetbrains.kotlin.com.intellij.openapi.vfs.StandardFileSystems.jar
-
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
@@ -21,11 +18,7 @@ plugins {
 
 }
 
-
-
-
 frontend {
-
     nodeVersion.set( "14.17.3")
    assembleScript.set("run build")
     cleanScript.set("run clean")
